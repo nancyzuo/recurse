@@ -1,0 +1,84 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  transition: background 0.4s ease;
+}
+
+/* Background based on turn */
+body.x-turn {
+  background: rgba(255, 120, 120, 0.15);
+}
+
+body.o-turn {
+  background: rgba(120, 140, 255, 0.15);
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* Cells */
+.cell {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cell:hover {
+  transform: scale(1.05);
+}
+
+/* Hover for empty cells based on turn */
+body.x-turn .cell:not(.x):not(.o):hover {
+  background: rgba(255, 77, 77, 0.25);
+}
+
+body.o-turn .cell:not(.x):not(.o):hover {
+  background: rgba(77, 107, 255, 0.25);
+}
+
+/* Filled cells */
+.cell.x {
+  color: #b30000;
+  background: rgba(255, 77, 77, 0.2);
+}
+
+.cell.o {
+  color: #1a2cff;
+  background: rgba(77, 107, 255, 0.2);
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #555;
+}
