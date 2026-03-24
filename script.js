@@ -2,11 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
   //checks that page is loadedbefore running script
   const board = document.getElementById("board");
   const statusText = document.getElementById("status");
+  document.getElementById("twoBtn").classList.add("active");
 
   // STATE VARIABLES
   let cells = []; // squares for board
   let currentPlayer = "X"; // tracks whose turn it is
   let gameActive = true; // prevents moves after game is over
+  let gameMode = "two"; // one player or two player
 
   // initialize background, it is red/blue depending on whose turn it is
   updateBackground();
@@ -23,6 +25,23 @@ document.addEventListener("DOMContentLoaded", () => {
     cells.push(cell);
   }
 
+  // set mode for game, either 1 player or 2 player, and reset game when mode is changed
+  window.setMode = function (mode) {
+    gameMode = mode;
+
+    // remove active from both
+    document.getElementById("oneBtn").classList.remove("active");
+    document.getElementById("twoBtn").classList.remove("active");
+
+    // add active to selected
+    if (mode === "one") {
+      document.getElementById("oneBtn").classList.add("active");
+    } else {
+      document.getElementById("twoBtn").classList.add("active");
+    }
+    resetGame();
+  };
+
   function handleClick(cell, index) {
     if (!gameActive || cell.textContent !== "") return;
 
@@ -30,13 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
     cell.classList.add(currentPlayer.toLowerCase()); //
 
     if (checkWinner()) {
-      statusText.textContent = `Player ${currentPlayer} wins!`;
+      statusText.textContent = `player ${currentPlayer} wins!!!`;
       gameActive = false;
       return;
     }
 
     if (cells.every((c) => c.textContent !== "")) {
-      statusText.textContent = "It's a draw!";
+      statusText.textContent = "it's a draw!";
       gameActive = false;
       return;
     }
@@ -46,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       currentPlayer = "X";
     }
-    statusText.textContent = `Player ${currentPlayer}'s turn`;
+    statusText.textContent = `player ${currentPlayer}'s turn`;
     updateBackground();
   }
 
@@ -92,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     currentPlayer = "X";
     gameActive = true;
-    statusText.textContent = "Player X's turn";
+    statusText.textContent = "player X's turn";
     updateBackground();
   };
 });
