@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let cells = []; // squares for board
   let currentPlayer = "X"; // tracks whose turn it is
   let gameActive = true; // prevents moves after game is over
-  let gameMode = "two"; // one player or two player
+  let gameMode = "two"; // select 1 player or 2 player, starts as 2 by default
 
   // initialize background, it is red/blue depending on whose turn it is
   updateBackground();
