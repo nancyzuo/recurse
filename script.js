@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("oneBtn").classList.remove("active");
     document.getElementById("twoBtn").classList.remove("active");
 
-    // add active to selected
+    // add active to selected one to bold it
     if (mode === "one") {
       document.getElementById("oneBtn").classList.add("active");
     } else {
@@ -41,6 +41,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     resetGame();
   };
+
+  // random AI
+  function aiMove() {
+    const emptyCells = [];
+
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].textContent === "") {
+        emptyCells.push(i);
+      }
+    }
+
+    if (emptyCells.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const move = emptyCells[randomIndex];
+
+    const cell = cells[move]; // moves to the random empty cell index
+
+    cell.textContent = "O";
+    cell.classList.add("o");
+
+    if (checkWinner()) {
+      statusText.textContent = "computer wins! 🤖";
+      gameActive = false;
+      return;
+    }
+
+    if (cells.every((c) => c.textContent !== "")) {
+      statusText.textContent = "it's a draw!";
+      gameActive = false;
+      return;
+    }
+
+    currentPlayer = "X";
+    statusText.textContent = "player X's turn";
+    updateBackground();
+  }
 
   function handleClick(cell, index) {
     if (!gameActive || cell.textContent !== "") return;
@@ -60,13 +97,23 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (currentPlayer === "X") {
-      currentPlayer = "O";
-    } else {
-      currentPlayer = "X";
-    }
-    statusText.textContent = `player ${currentPlayer}'s turn`;
+    //   if (currentPlayer === "X") {
+    //     currentPlayer = "O";
+    //   } else {
+    //     currentPlayer = "X";
+    //   }
+    //   statusText.textContent = `player ${currentPlayer}'s turn`;
+    //   updateBackground();
+    // }
+
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    statusText.textContent = `Player ${currentPlayer}'s turn`;
     updateBackground();
+
+    // if game mode is single player, then it will do person vs. AI
+    if (gameMode === "one" && currentPlayer === "O" && gameActive) {
+      setTimeout(aiMove, 400); // delay makes it feel natural
+    }
   }
 
   function checkWinner() {
