@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     currentPlayer = "X";
-    statusText.textContent = "player X's turn";
+    statusText.textContent = "your turn 👩‍💻";
     updateBackground();
   }
 
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // }
 
     currentPlayer = currentPlayer === "X" ? "O" : "X";
-    statusText.textContent = `Player ${currentPlayer}'s turn`;
+    statusText.textContent = `player ${currentPlayer}'s turn`;
     updateBackground();
 
     // if game mode is single player, then it will do person vs. AI
